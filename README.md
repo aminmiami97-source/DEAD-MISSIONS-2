@@ -49,3 +49,8 @@ The `.github/workflows/pages.yml` workflow deploys the static site whenever chan
 - More missions coming soon.
 
 This is an early prototype. Gameplay, balance, visuals and device performance will continue to evolve.
+
+
+### First-time Pages setup
+
+If the first deployment fails because the Pages site does not exist yet, create a fine-grained personal access token restricted to this repository with **Pages: Read and write** and **Administration: Read and write** repository permissions. Add it under **Settings → Secrets and variables → Actions** as `PAGES_SETUP_TOKEN`, then re-run the deployment workflow. The setup token is used by `actions/configure-pages` only to create the Pages site; subsequent deployments can use the workflow's normal `GITHUB_TOKEN`.
