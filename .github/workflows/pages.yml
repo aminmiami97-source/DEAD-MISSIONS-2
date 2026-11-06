@@ -23,12 +23,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # PAGES_SETUP_TOKEN is only needed to bootstrap Pages the first time.
+      # Once the Pages site exists, the workflow can use the normal GITHUB_TOKEN.
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          token: ${{ secrets.PAGES_SETUP_TOKEN != '' && secrets.PAGES_SETUP_TOKEN || github.token }}
+          enablement: ${{ secrets.PAGES_SETUP_TOKEN != '' }}
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
