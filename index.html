@@ -120,10 +120,10 @@ function init3D(){
  const sun=new THREE.DirectionalLight(0xffe5c1,2.1);sun.position.set(-22,35,18);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-45;sun.shadow.camera.right=45;sun.shadow.camera.top=45;sun.shadow.camera.bottom=-45;scene.add(sun);
  clock=new THREE.Clock();raycaster=new THREE.Raycaster();raycaster.far=90;
  window.addEventListener("resize",onResize);
- renderer.domElement.addEventListener("click",()=>{if(state.mode==="playing"&&!isTouchDevice()&&document.pointerLockElement!==renderer.domElement)renderer.domElement.requestPointerLock?.();});renderer.domElement.addEventListener("mousedown",e=>{if(e.button===0&&state.mode==="playing")shoot();});
+ renderer.domElement.addEventListener("click",()=>{if(state.mode==="playing"&&!isTouchDevice()&&document.pointerLockElement!==renderer.domElement)renderer.domElement.requestPointerLock?.();});renderer.domElement.addEventListener("mousedown",e=>{if(e.button===0&&state.mode==="playing"){keys.Mouse0=true;shoot();}});renderer.domElement.addEventListener("mousedown",e=>{if(e.button===0&&state.mode==="playing")shoot();});
  document.addEventListener("pointerlockchange",()=>{if(document.pointerLockElement!==renderer.domElement&&state.mode==="playing"&&!isTouchDevice())pauseGame();});
  document.addEventListener("mousemove",e=>{if(state.mode==="playing"&&document.pointerLockElement===renderer.domElement){yaw-=e.movementX*.0022;pitch-=e.movementY*.0022;pitch=THREE.MathUtils.clamp(pitch,-1.35,1.35);}});
- window.addEventListener("keydown",onKeyDown);window.addEventListener("keyup",e=>keys[e.code]=false);window.addEventListener("mouseup",e=>{if(e.button===0)keys.Mouse0=false;});
+ window.addEventListener("keydown",onKeyDown);window.addEventListener("keyup",e=>keys[e.code]=false);window.addEventListener("mouseup",e=>{if(e.button===0)keys.Mouse0=false;});window.addEventListener("mouseup",e=>{if(e.button===0)keys.Mouse0=false;});
  setupTouch();
  animate();
 }
