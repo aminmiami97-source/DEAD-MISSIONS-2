@@ -1,0 +1,41 @@
+name: Validate Dead Missions
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Extract browser module
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          match = re.search(r'<script type="module">\s*(.*?)\s*</script>', html, re.S)
+          if not match:
+              raise SystemExit("Could not find the game module in index.html")
+          Path("/tmp/dead-missions.mjs").write_text(match.group(1), encoding="utf-8")
+          print("Found the browser game module.")
+          PY
+      - name: Check JavaScript syntax
+        run: node --check /tmp/dead-missions.mjs
+      - name: Verify release metadata
+        run: |
+          grep -q 'DEAD MISSIONS' index.html
+          grep -q 'VERSION 0.0.1' index.html
+          grep -q 'Blackout Protocol' README.md
+          echo "Release metadata verified."
