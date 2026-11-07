@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0b0e0c">
-<meta name="description" content="Dead Missions — a browser-based tactical mission game. Early build 0.0.3.">
-<title>DEAD MISSIONS // 0.0.3</title>
+<meta name="description" content="Dead Missions — a browser-based tactical mission game. Early build 0.0.4.">
+<title>DEAD MISSIONS // 0.0.4</title>
 <style>
 :root{--bg:#090c0b;--panel:#111715;--panel2:#18211d;--line:#2a3831;--text:#e8eee9;--muted:#93a198;--green:#b9e26b;--green2:#718e3b;--red:#dd6758;--gold:#d4bd79}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button{font:inherit;color:inherit;cursor:pointer}#game{position:fixed;inset:0;display:block;outline:none}#game canvas{display:block;width:100%;height:100%}
@@ -51,7 +51,7 @@
    <div class="brand-kicker">A FIELD RECORD // CLASSIFIED</div>
    <h1 class="brand">DEAD<span>MISSIONS</span></h1>
    <p class="brand-sub">Two operations. One failed training day. Get through the range, survive the blackout, and bring the signal home. A first-person mission game built for the browser.</p>
-   <div class="build-stamp"><i></i> VERSION 0.0.3 &nbsp; / &nbsp; EARLY BUILD</div>
+   <div class="build-stamp"><i></i> VERSION 0.0.4 &nbsp; / &nbsp; EARLY BUILD</div>
   </section>
   <section class="menu-panel">
    <div class="panel-head"><b id="menu-title">Mission Control</b><small>DM // FIELD OPS</small></div>
@@ -59,7 +59,7 @@
     <button class="action primary" id="start-btn"><span>Begin Operation</span><small>MISSION 01 / RANGE ZERO →</small></button>
     <button class="action" id="missions-btn"><span>Mission Select</span><small>02 OPERATIONS</small></button>
     <button class="action" id="loadout-btn"><span>Armory / Loadout</span><small>3 PRIMARY · 2 SECONDARY</small></button>
-    <button class="action" id="changelog-btn"><span>Field Changelog</span><small>WHAT'S NEW IN 0.0.3</small></button>
+    <button class="action" id="changelog-btn"><span>Field Changelog</span><small>WHAT'S NEW IN 0.0.4</small></button>
     <button class="action" id="controls-btn"><span>Controls</span><small>HOW TO PLAY</small></button>
    </div>
    <div id="missions-panel" style="display:none">
@@ -287,60 +287,62 @@ function addOutpostFlag(){const g=new THREE.Group();cyl(g,.08,.08,5,[0,2.5,0],ma
 function makeWeaponModel(id){
  if(gun)camera.remove(gun);
  const w=weapons[id],g=new THREE.Group();
- const gunDark=mat(0x222925,.38,.72),gunEdge=mat(0x68746c,.32,.76),poly=mat(0x3c463e,.72,.08),rubber=mat(0x1c221f,.93),accent=mat(w.color,.42,.38),wood=mat(0x705c42,.75,.08);
- const sleeve=mat(0x59634c,.94),sleeveDark=mat(0x3e493b,.9);
- const add=(size,pos,material=gunDark,rotation)=>block(g,size,pos,material,rotation);
- const ring=(radius,length,pos,material=gunDark)=>cyl(g,radius,radius,length,pos,material,16,[Math.PI/2,0,0]);
+ const metal=mat(0x252c29,.34,.78),edge=mat(0x66716b,.3,.82),poly=mat(0x414b43,.78,.06),rubber=mat(0x202622,.94),accent=mat(w.color,.48,.28),glass=new THREE.MeshStandardMaterial({color:0x1b2928,roughness:.18,metalness:.35});
+ const sleeve=mat(0x58634c,.96),cuff=mat(0x343d34,.92),glove=mat(0x252b27,.98),pad=mat(0x465047,.9);
+ const box=(size,pos,material=metal,rot)=>block(g,size,pos,material,rot);
+ const tube=(radius,length,pos,material=metal)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,length,12),material);m.rotation.x=Math.PI/2;m.position.set(...pos);m.frustumCulled=false;g.add(m);return m;};
+ const rail=(x,y,z,length)=>{box([.075,.035,length],[x,y,z],edge);for(let i=0;i<Math.floor(length/.13);i++)box([.085,.018,.035],[x,y+.024,z-length/2+.07+i*.13],metal);};
+ const sight=(x,y,z)=>{box([.13,.035,.2],[x,y,z],metal);box([.035,.12,.045],[x,y+.075,z],edge);box([.035,.12,.045],[x,y+.075,z-.13],edge);};
+ const gloveHand=(x,y,z,scale=1)=>{const hand=new THREE.Group();const palm=sphere(hand,.12, [0,0,0],glove,12);palm.scale.set(.82,.62,1.18);for(let i=0;i<4;i++){const f=block(hand,[.045,.055,.17],[(i-1.5)*.052,-.025,-.13],pad,[.18,0,0]);f.frustumCulled=false;}const thumb=block(hand,[.055,.065,.13],[.105,-.005,.015],glove,[0,0,-.65]);thumb.frustumCulled=false;hand.position.set(x,y,z);hand.scale.setScalar(scale);g.add(hand);return hand;};
+ const arm=(a,b,r=.14)=>{addViewArm(g,a,b,r,sleeve);const d=new THREE.Vector3(...a).distanceTo(new THREE.Vector3(...b));const cuffMesh=tube;const cuffGroup=new THREE.Mesh(new THREE.CylinderGeometry(r*.98,r*.98,.12,12),cuff);cuffGroup.position.set(...a);cuffGroup.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...b).sub(new THREE.Vector3(...a)).normalize());g.add(cuffGroup);};
  const primary=w.slot==="PRIMARY";
  if(primary){
-  addViewArm(g,[-.55,-.95,.34],[.05,-.55,-.65],.145,sleeve);
-  addViewArm(g,[1.12,-.96,.35],[.59,-.55,-.2],.155,sleeve);
-  sphere(g,.16,[-.01,-.56,-.65],sleeveDark,12).scale.set(1,.85,1.15);
-  sphere(g,.17,[.6,-.55,-.2],sleeveDark,12).scale.set(1,.85,1.15);
-  // Stock and receiver are deliberately enlarged and placed in the lower-right field of view.
-  add([.27,.22,.48],[.43,-.3,-.22],poly);
-  add([.32,.24,.5],[.43,-.29,-.65],gunDark);
-  add([.24,.1,.32],[.43,-.16,-.7],gunEdge);
-  add([.12,.12,.3],[.43,-.29,-.78],accent);
-  add([.23,.22,.55],[.43,-.29,-1.08],w.model==="shotgun"?wood:poly);
-  ring(w.model==="shotgun"?.078:.05,w.model==="shotgun"?.96:1.0,[.43,-.27,-1.14],gunDark);
-  ring(w.model==="shotgun"?.09:.06,.14,[.43,-.27,-1.69],gunEdge);
-  add([.1,.085,.91],[.43,-.14,-.95],gunEdge);
-  add([.12,.16,.25],[.43,-.025,-.6],gunDark);
-  add([.19,.12,.16],[.43,.075,-.6],accent);
-  add([.13,.045,.1],[.43,.15,-.6],gunEdge);
-  add([.16,.35,.18],[.43,-.53,-.66],gunDark,[.08,0,0]);
-  add([.23,.06,.28],[.43,-.44,-.45],gunEdge);
-  add([.16,.29,.17],[.43,-.57,-.35],rubber,[.18,0,0]);
-  add([.2,.18,.35],[.43,-.3,.02],poly);
-  add([.14,.1,.15],[.43,-.2,.2],gunEdge);
-  if(w.model==="smg"){add([.18,.3,.18],[.43,-.54,-.22],accent);add([.13,.1,.22],[.43,-.14,-.82],gunEdge);}
-  if(w.model==="shotgun"){add([.25,.16,.4],[.43,-.44,-1.0],wood);add([.16,.12,.35],[.43,-.15,-1.15],gunEdge);add([.15,.1,.14],[.43,-.27,-1.65],accent);}
-  addViewGlove(g,[.08,-.51,-.78],1.05);
-  addViewGlove(g,[.49,-.52,-.28],1.0);
+  // Arms are kept behind the receiver so the grip and weapon silhouette stay readable.
+  arm([-.62,-.98,.28],[.02,-.63,-.92],.15);
+  arm([1.02,-.98,.3],[.53,-.62,-.36],.155);
+  const shotgun=w.model==="shotgun",smg=w.model==="smg";
+  // Stock, receiver and handguard form one clean, continuous silhouette.
+  box([.22,.2,.48],[.43,-.35,-.12],poly);
+  box([.25,.23,.62],[.43,-.34,-.59],metal);
+  box([.23,.17,shotgun?.55:.48],[.43,-.34,-1.13],shotgun?accent:poly);
+  box([.26,.045,.28],[.43,-.205,-.62],edge);
+  // Barrel and muzzle.
+  tube(shotgun?.065:.043,shotgun?1.05:.82,[.43,-.31,-1.56],metal);
+  tube(shotgun?.085:.06,.12,[.43,-.31,-2.08],edge);
+  // Top rail, simple optic and front post.
+  rail(.43,-.205,-1.04,.9);
+  if(!smg){box([.13,.08,.2],[.43,-.12,-.64],metal);box([.095,.11,.12],[.43,-.025,-.64],glass);box([.15,.025,.18],[.43,.04,-.64],edge);}
+  else {sight(.43,-.12,-.66);}
+  // Magazine, trigger guard and pistol grip.
+  box([.16,.31,.2],[.43,-.58,-.72],rubber,[.12,0,0]);
+  box([.12,.12,.14],[.43,-.49,-.67],metal);
+  box([.13,.3,.17],[.43,-.57,-.25],rubber,[.2,0,0]);
+  if(smg)box([.14,.25,.18],[.43,-.57,-.18],accent);
+  if(shotgun){box([.24,.19,.42],[.43,-.49,-1.22],accent);box([.18,.15,.32],[.43,-.52,-.9],woodFallback());}
+  gloveHand(.08,-.57,-.99,1.02);
+  gloveHand(.48,-.57,-.31,1.0);
  }else{
-  addViewArm(g,[-.48,-.95,.35],[.38,-.58,-.52],.14,sleeve);
-  addViewArm(g,[1.08,-.98,.38],[.52,-.55,-.22],.15,sleeve);
-  sphere(g,.16,[.38,-.58,-.52],sleeveDark,12);
-  sphere(g,.17,[.52,-.55,-.22],sleeveDark,12);
-  add([.25,.19,.56],[.43,-.32,-.72],gunDark);
-  add([.23,.12,.4],[.43,-.19,-.72],gunEdge);
-  add([.17,.06,.11],[.43,-.105,-.76],accent);
-  add([.08,.07,.38],[.43,-.28,-1.14],gunEdge);
-  ring(.047,.52,[.43,-.28,-1.14],gunDark);
-  add([.2,.08,.12],[.43,-.22,-1.4],gunEdge);
-  add([.17,.32,.19],[.43,-.54,-.45],rubber,[.2,0,0]);
-  add([.2,.08,.2],[.43,-.43,-.53],gunEdge);
-  add([.11,.09,.14],[.43,-.11,-.65],gunDark);
-  add([.07,.11,.13],[.43,-.035,-.65],gunEdge);
-  if(w.model==="heavy"){add([.26,.2,.25],[.43,-.32,-.64],accent);add([.17,.11,.15],[.43,-.1,-.8],gunEdge);add([.19,.08,.16],[.43,-.48,-.42],gunDark);}
-  addViewGlove(g,[.43,-.51,-.43],1);
-  addViewGlove(g,[.24,-.59,-.74],.86);
+  // Compact sidearm: slide, frame, barrel, trigger guard and angled grip.
+  arm([-.47,-.99,.3],[.37,-.66,-.61],.135);
+  arm([1.0,-.98,.3],[.55,-.66,-.48],.14);
+  box([.23,.16,.57],[.43,-.34,-.79],metal);
+  box([.19,.045,.48],[.43,-.235,-.81],edge);
+  tube(.035,.35,[.43,-.32,-1.25],metal);
+  box([.13,.3,.2],[.43,-.56,-.57],rubber,[.18,0,0]);
+  box([.18,.05,.2],[.43,-.47,-.64],edge);
+  box([.14,.035,.22],[.43,-.235,-.8],metal);
+  sight(.43,-.17,-.79);
+  if(w.model==="heavy"){box([.27,.19,.28],[.43,-.36,-.73],accent);tube(.055,.14,[.43,-.32,-1.48],edge);}
+  gloveHand(.42,-.61,-.53,1.0);
+  gloveHand(.23,-.64,-.84,.82);
  }
- g.position.set(-.08,.025,-.015);g.rotation.set(-.01,-.01,0);g.scale.setScalar(.94);
+ g.position.set(-.1,.005,-.02);
+ g.rotation.set(-.015,-.012,0);
+ g.scale.setScalar(.92);
  g.traverse(o=>{if(o.isMesh){o.frustumCulled=false;o.renderOrder=999;o.castShadow=false;o.material.depthTest=false;o.material.depthWrite=false;}});
- const light=new THREE.PointLight(0xe0ebd6,.9,3.8);light.position.set(.25,.55,.5);g.add(light);
+ const light=new THREE.PointLight(0xdce8d5,.55,3.2);light.position.set(.15,.4,.45);g.add(light);
  camera.add(g);gun=g;gunBaseY=g.position.y;
+ function woodFallback(){return mat(0x62513c,.82,.04);}
 }
 function setWeapon(id){state.activeSlot=weapons[id].slot==="PRIMARY"?"primary":"secondary";if(state.activeSlot==="primary")state.primary=id;else state.secondary=id;makeWeaponModel(id);updateWeaponHud();}
 function activeWeapon(){return weapons[state.activeSlot==="primary"?state.primary:state.secondary];}
@@ -462,7 +464,7 @@ function update(dt){if(state.mode==="playing"){camera.rotation.set(pitch,yaw,0);
 function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05);state.elapsed+=dt;if(state.mode!=="menu"&&state.mode!=="paused"&&state.mode!=="complete"&&state.mode!=="blackout")update(dt);if(renderer&&scene&&camera)renderer.render(scene,camera);}
 function openModal(title,html){$("modal-title").textContent=title;$("modal-content").innerHTML=html;$("modal").classList.add("open");}
 function showChangelog(){
- openModal("Field Changelog",'<div class="eyebrow">0.0.3 // WORLD EXPANSION</div><h3 style="font-size:24px;letter-spacing:-.04em;margin:8px 0 14px">The world is changing</h3><p><strong>NEW — Three-aircraft bombing sequence</strong><br>Three aircraft cross the training range and each releases one bomb before the player is knocked down.</p><p><strong>NEW — Story interlude</strong><br>Four white-on-black mission briefings reveal the fall of the world, the last free territory, and the enemy hunt for the player before Mission 02 begins.</p><p><strong>FIXED — First-person weapons</strong><br>The camera now remains in the Three.js scene graph after mission resets, allowing the camera-mounted weapon and hands to render. Viewmodel meshes render above the world.</p><p><strong>NEW — Procedural terrain</strong><br>Grass and sand color fields, fine ground grain, instanced grass blades, and scattered low-poly rocks are generated locally for both maps.</p><p><strong>IMPROVED — Mission environments</strong><br>The training range and communications outpost now have more natural terrain beneath their structures, props, and objectives.</p><div class="build-stamp"><i></i> VERSION 0.0.3 · EARLY BUILD</div>');
+ openModal("Field Changelog",'<div class="eyebrow">0.0.4 // WORLD EXPANSION</div><h3 style="font-size:24px;letter-spacing:-.04em;margin:8px 0 14px">The world is changing</h3><p><strong>NEW — Three-aircraft bombing sequence</strong><br>Three aircraft cross the training range and each releases one bomb before the player is knocked down.</p><p><strong>NEW — Story interlude</strong><br>Four white-on-black mission briefings reveal the fall of the world, the last free territory, and the enemy hunt for the player before Mission 02 begins.</p><p><strong>FIXED — First-person weapons</strong><br>The camera now remains in the Three.js scene graph after mission resets, allowing the camera-mounted weapon and hands to render. Viewmodel meshes render above the world.</p><p><strong>NEW — Procedural terrain</strong><br>Grass and sand color fields, fine ground grain, instanced grass blades, and scattered low-poly rocks are generated locally for both maps.</p><p><strong>IMPROVED — Mission environments</strong><br>The training range and communications outpost now have more natural terrain beneath their structures, props, and objectives.</p><div class="build-stamp"><i></i> VERSION 0.0.4 · EARLY BUILD</div>');
 }
 const weaponOption=(id,slot)=>{const w=weapons[id],selected=(slot==="primary"?state.primary:state.secondary)===id;return '<button class="weapon-option '+(selected?"selected":"")+'" data-weapon="'+id+'"><div class="weapon-art">◈</div><b>'+w.name+(selected?" · EQUIPPED":"")+'</b><small>'+w.description+'</small></button>';};
 function showLoadout(){const html='<div class="eyebrow">Choose one weapon from each class</div><div class="section-label">Primary weapons / 3 available</div><div class="weapon-grid">'+weaponOption("vanguard","primary")+weaponOption("striker","primary")+weaponOption("breach","primary")+'</div><div class="section-label">Secondary weapons / 2 available</div><div class="weapon-grid secondary">'+weaponOption("sidearm","secondary")+weaponOption("sentinel","secondary")+'</div><p class="modal-copy" style="margin-top:15px">Your selected loadout is carried into both operations. Press 1 / 2 to switch weapon slots during a mission.</p>';$("modal-title").textContent="Armory / Loadout";$("modal-content").innerHTML=html;$("modal").classList.add("open");$("modal-content").querySelectorAll("[data-weapon]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.weapon,w=weapons[id];if(w.slot==="PRIMARY")state.primary=id;else state.secondary=id;$("modal").classList.remove("open");showLoadout();if(state.mode==="playing"||state.mode==="paused"){makeWeaponModel(state.activeSlot==="primary"?state.primary:state.secondary);updateWeaponHud();}}));}
