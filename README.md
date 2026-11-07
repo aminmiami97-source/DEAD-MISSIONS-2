@@ -1,14 +1,23 @@
 # DEAD MISSIONS
 
-**Version 0.0.4 — EARLY BUILD**
+**Version 0.1.0 — EARLY BUILD**
 
 Dead Missions is a browser-first first-person mission game, built as a static Three.js site for desktop and mobile browsers.
+
+## What's new in 0.1.0
+
+- Added procedural idle breathing and subtle first-person camera motion.
+- Added smooth walking and sprinting head-bob/body sway with blended movement transitions.
+- Added gradual crouching with a lower movement speed.
+- Added a jump arc with gravity and a soft landing recovery.
+- Added touch-screen Jump and Crouch controls.
+- This is a single-player movement-animation milestone. Online multiplayer is not included.
 
 ## What's new in 0.0.4
 
 - Rebuilt all five first-person weapon models with cleaner, more readable silhouettes and consistent proportions.
 - Separated stocks, receivers, handguards, barrels, muzzles, magazines, grips and sights into clearer shapes.
-- Refined sleeve, cuff and glove placement for more natural-looking weapon handling.
+- Refined sleeve, cuff and glove placement for more natural-looking weapon presentation.
 - Reduced decorative clutter and simplified material contrast.
 
 ## What's new in 0.0.3
@@ -47,6 +56,8 @@ Dead Missions is a browser-first first-person mission game, built as a static Th
 | Switch weapon | 1 / 2 | SWAP |
 | Interact | E | USE |
 | Sprint | Shift | — |
+| Crouch | Ctrl or C | CROUCH |
+| Jump | Space | JUMP |
 | Pause | Escape | — |
 
 ## Run locally
@@ -61,7 +72,12 @@ For first-time Pages initialization, create a fine-grained token restricted to t
 
 ## Changelog
 
-### 0.0.4
+### 0.1.0 [EARLY BUILD]
+- Procedural idle, walk, sprint, crouch, jump and landing motion.
+- Smooth state blending and mobile jump/crouch controls.
+- Single-player only; multiplayer not included.
+
+### 0.0.4 [EARLY BUILD]
 - Rebuilt all five weapon viewmodels for cleaner silhouettes and clearer hand placement.
 
 ### 0.0.3 [EARLY BUILD]
