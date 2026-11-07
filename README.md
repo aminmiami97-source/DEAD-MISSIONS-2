@@ -1,8 +1,15 @@
 # DEAD MISSIONS
 
-**Version 0.0.2 — EARLY BUILD**
+**Version 0.0.3 — EARLY BUILD**
 
 Dead Missions is a browser-first first-person mission game, built as a static Three.js site for desktop and mobile browsers.
+
+## What's new in 0.0.3
+
+- Three aircraft now fly over the training range, with exactly one bomb dropped by each plane.
+- Added four white-text-on-black story screens before Mission 02: the terrorist coalition has taken the world, one free territory remains, and the enemy is hunting the player.
+- Fixed first-person weapon rendering by adding the camera to the Three.js scene graph and keeping it there across mission resets.
+- Added browser-generated procedural ground with grass/sand variation, fine terrain grain, instanced grass blades and scattered low-poly rocks on both maps.
 
 ## What's new in 0.0.2
 
@@ -14,7 +21,7 @@ Dead Missions is a browser-first first-person mission game, built as a static Th
 
 ## Missions
 
-1. **Range Zero** — Complete the training drill with ten headshots. Aircraft pass overhead, bombs strike the range, and the player is knocked off their feet.
+1. **Range Zero** — Complete the training drill with ten headshots. Three aircraft pass overhead and each drops a bomb before the player is knocked off their feet. A story briefing follows.
 2. **Blackout Protocol** — Restore three communications relays, disable hostile drones, and reach the extraction beacon.
 
 ## Armory
@@ -46,6 +53,12 @@ The `.github/workflows/pages.yml` workflow deploys the static site when changes 
 For first-time Pages initialization, create a fine-grained token restricted to this repository with **Pages: Read and write** and **Administration: Read and write**, then add it as the Actions repository secret `PAGES_SETUP_TOKEN`. Once the Pages site exists, subsequent deployments use the workflow's normal `GITHUB_TOKEN`.
 
 ## Changelog
+
+### 0.0.3 [EARLY BUILD]
+- Three-plane bombing sequence with one bomb per aircraft.
+- Four story briefing screens before Mission 02.
+- Camera-mounted weapon rendering fix.
+- Procedural grass, sand and rock terrain.
 
 ### 0.0.2 [EARLY BUILD]
 - Held weapon models with visible hands and sleeves.
