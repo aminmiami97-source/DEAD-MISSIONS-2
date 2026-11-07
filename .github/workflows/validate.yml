@@ -36,11 +36,14 @@ jobs:
       - name: Verify release metadata
         run: |
           grep -q 'DEAD MISSIONS' index.html
-          grep -q 'VERSION 0.0.4' index.html
+          grep -q 'VERSION 0.1.0' index.html
           grep -q 'Blackout Protocol' README.md
           grep -q 'addJet(-28,24,-13)' index.html
           grep -q 'function addTerrainScatter' index.html
           grep -q 'const storyMessages' index.html
           grep -q 'function makeWeaponModel(id)' index.html
-          grep -q 'function woodFallback()' index.html
+          grep -q 'function createViewHand(parent,materials' index.html
+          grep -q 'function updateViewmodelAnimation(dt' index.html
+          grep -q 'NETWORKED OPERATIONS' index.html
+          grep -q 'rig.poseName=' index.html
           echo "Release metadata verified."
