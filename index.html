@@ -286,40 +286,6 @@ function addOutpostFlag(){const g=new THREE.Group();cyl(g,.08,.08,5,[0,2.5,0],ma
 
 function addViewArm(parent,start,end,radius,material){const a=new THREE.Vector3(...start),b=new THREE.Vector3(...end),direction=b.clone().sub(a);const mesh=new THREE.Mesh(new THREE.CylinderGeometry(radius*.82,radius,direction.length(),12),material);mesh.position.copy(a.add(b).multiplyScalar(.5));mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction.normalize());mesh.frustumCulled=false;parent.add(mesh);return mesh;}
 function addViewGlove(parent,position,scale=1){const base=mat(0x242b26,.96),knuckle=mat(0x3c463d,.92),g=new THREE.Group();sphere(g,.145*scale,[0,0,0],base,12).scale.set(1.02,.82,1.26);for(let i=0;i<4;i++){const finger=block(g,[.045*scale,.07*scale,.18*scale],[(i-1.5)*.064*scale,-.045*scale,-.145*scale],knuckle,[.25,0,0]);finger.frustumCulled=false;}block(g,[.09*scale,.12*scale,.15*scale],[.14*scale,-.005*scale,.01*scale],base,[0,0,-.55]);g.position.set(...position);parent.add(g);return g;}
-function addControlTower(x,z){const g=new THREE.Group();block(g,[3.4,8,3.4],[0,4,0],mats.concrete);block(g,[4.2,.35,4.2],[0,8.1,0],mats.dark);block(g,[4.4,1.3,4.4],[0,8.85,0],mat(0x59664f));for(const side of [-1,1])block(g,[.08,.7,.08],[side*1.1,8.85,1.95],mats.glow);for(const y of [1.8,3.6,5.4,7.2])block(g,[3.5,.08,3.5],[0,y,-1.76],mats.metal);g.position.set(x,0,z);scene.add(g);}
-
-function buildRange(){
- scene.background=new THREE.Color(0x9ba99e);scene.fog=new THREE.Fog(0x9ba99e,48,145);makeGround(0x58634f);
- addRoad(8,74,0,-17,0x686b5f);addRoad(52,4,0,-3,0x4b5549);addRoad(52,4,0,-36,0x4b5549);
- addBuilding(-19,-17,11,7,15,0x69766b);addBuilding(19,-23,12,8,16,0x606c62);addBuilding(-25,8,9,5,10,0x68746a);addBuilding(26,9,10,6,12,0x636e63);
- addControlTower(-31,-27);addFence(-1,-40,57,0);addFence(-28,-17,50,Math.PI/2);addFence(28,-17,50,Math.PI/2);addFence(0,8,55,0);
- for(let i=0;i<8;i++){addBarrier(-12+i*3.45,-5,3);addBarrier(-12+i*3.45,-34,3);}
- for(let i=0;i<7;i++){const x=-14+i*4.65;addCone(x,2);addCone(x,-38);addRoad(.12,28,x,-20,0x8a8a70);}
- for(let i=0;i<5;i++)addLightPole(-22+i*11,-8);
- const positions=[[-11,-16],[-6,-18],[-1,-17],[4,-18],[9,-16],[-9,-28],[-4,-30],[1,-29],[6,-31],[11,-28]];
- positions.forEach((p,i)=>{block(scene,[1.35,2.5,.16],[p[0],1.25,p[1]-.42],mat(0x5c6558));block(scene,[1.15,.12,.08],[p[0],2.52,p[1]-.31],mats.dark);addDummy(p[0],p[1],i);});
- addCrate(-15,-10,1.2);addCrate(15,-11,1.15);addCrate(-16,-33);addCrate(16,-34);
- addVehicle(-23,-31,.7,false);addVehicle(23,-8,-.3,false);
- for(let i=0;i<12;i++){const x=-34+Math.random()*68,z=-52+Math.random()*12;const rock=block(scene,[1+Math.random()*2,.4+Math.random()*1.1,1+Math.random()*2],[x,.08,z],mat(0x737568));rock.rotation.y=Math.random()*2;}
- addJet(-28,24,-13);addJet(-22,26,-18);addJet(-16,28,-23);
- camera.position.set(0,1.7,12);yaw=0;pitch=-.025;camera.rotation.set(pitch,yaw,0);
-}function addRelay(x,z,index){const g=new THREE.Group();g.position.set(x,0,z);cyl(g,.85,.95,.24,[0,.12,0],mats.dark,12);cyl(g,.32,.32,2.4,[0,1.35,0],mats.metal,10);block(g,[.85,.85,.4],[0,1.35,0],mat(0x47564c,.5,.5));const lamp=sphere(g,.22,[0,2.05,.24],mats.redGlow,12);cyl(g,.72,.72,.06,[0,2.3,0],mats.glow,24);const ring=new THREE.Mesh(new THREE.TorusGeometry(.68,.035,6,24),mats.redGlow);ring.position.y=2.3;ring.rotation.x=Math.PI/2;g.add(ring);scene.add(g);const relay={group:g,lamp:lamp,index:index,active:false,position:new THREE.Vector3(x,0,z)};relays.push(relay);}
-function addDrone(x,z,index){const g=new THREE.Group();g.position.set(x,2.2,z);const core=new THREE.Mesh(new THREE.OctahedronGeometry(.55,1),mat(0x4d5854,.35,.7));core.userData.droneIndex=index;g.add(core);const eye=sphere(g,.17,[0,0,-.48],mats.redGlow,12);eye.userData.droneIndex=index;for(let i=0;i<4;i++){const a=i*Math.PI/2;block(g,[1.15,.08,.13],[Math.sin(a)*.65,0,Math.cos(a)*.65],mats.metal,[0,-a,0]);sphere(g,.12,[Math.sin(a)*1.2,.02,Math.cos(a)*1.2],mats.glow,8);}scene.add(g);const drone={group:g,core:core,health:3,index:index,active:true,base:new THREE.Vector3(x,2.2,z),phase:index*1.7};core.userData.drone=drone;eye.userData.drone=drone;drones.push(drone);}
-function buildOutpost(){
- scene.background=new THREE.Color(0x747d76);scene.fog=new THREE.Fog(0x747d76,38,120);makeGround(0x4b5149);
- addRoad(7,86,0,-33,0x625f52);addRoad(48,5,0,-17,0x5b5c50);
- addBuilding(-20,-23,14,8,16,0x596158);addBuilding(19,-32,15,9,18,0x505a51);addBuilding(-24,-51,11,7,14,0x5c6259);
- addControlTower(29,-49);addFence(-1,-58,58,0);addFence(-28,-35,42,Math.PI/2);addFence(28,-35,42,Math.PI/2);
- addBarrier(-11,-11,5);addBarrier(12,-17,5);addBarrier(-7,-39,4);addBarrier(9,-48,4);
- addVehicle(-9,-25,.18,true);addVehicle(13,-45,-.65,true);
- addDish(-18,-17);addDish(20,-40);addLightPole(-4,-13);addLightPole(5,-53);
- addCrate(-14,-15,1.25);addCrate(-12,-17);addCrate(14,-29,1.35);addCrate(16,-29);addCrate(-5,-51);addCrate(5,-48,1.2);
- addBarrel(-16,-29,true);addBarrel(17,-51,true);addBarrel(5,-12,false);
- for(let i=0;i<10;i++){const x=-28+Math.random()*56,z=-8-Math.random()*55;const rubble=block(scene,[.5+Math.random()*2,.25+Math.random()*1.1,.5+Math.random()*1.8],[x,.1,z],mat(0x565c53),[Math.random()*.3,Math.random(),Math.random()*.2]);rubble.rotation.z=Math.random()*.3;}
- for(let i=0;i<8;i++){const x=-25+i*7;addRoad(.16,50,x,-34,0x777665);}
- addRelay(-11,-18,0);addRelay(10,-28,1);addRelay(0,-43,2);camera.position.set(0,1.7,7);yaw=0;pitch=0;camera.rotation.set(pitch,yaw,0);addOutpostFlag();
-}
-function addOutpostFlag(){const g=new THREE.Group();cyl(g,.08,.08,5,[0,2.5,0],mats.metal,8);block(g,[1.7,.8,.06],[.8,4.1,0],mat(0x5b6849));scene.add(g);g.position.set(0,0,-55);}
 function makeWeaponModel(id){
  if(gun)camera.remove(gun);
  const w=weapons[id],g=new THREE.Group();
