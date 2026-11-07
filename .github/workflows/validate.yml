@@ -42,8 +42,8 @@ jobs:
           grep -q 'function addTerrainScatter' index.html
           grep -q 'const storyMessages' index.html
           grep -q 'function makeWeaponModel(id)' index.html
-          grep -q 'function createViewHand(parent,materials' index.html
-          grep -q 'function updateViewmodelAnimation(dt' index.html
-          grep -q 'NETWORKED OPERATIONS' index.html
-          grep -q 'rig.poseName=' index.html
+          grep -q 'function updatePlayerMotion(dt' index.html
+          grep -q 'touch-crouch' index.html
+          grep -q 'touch-jump' index.html
+          grep -q 'Ctrl / C — Crouch' index.html
           echo "Release metadata verified."
