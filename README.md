@@ -1,6 +1,6 @@
 # DEAD MISSIONS
 
-**Version 0.0.4 — EARLY BUILD**
+**Version 0.1.0 — EARLY BUILD**
 
 Dead Missions is a browser-first first-person mission game, built as a static Three.js site for desktop and mobile browsers.
 
@@ -10,6 +10,14 @@ Dead Missions is a browser-first first-person mission game, built as a static Th
 - Separated stocks, receivers, handguards, barrels, muzzles, magazines, grips and sights into clearer shapes.
 - Refined sleeve, cuff and glove placement for more natural-looking weapon handling.
 - Reduced decorative clutter and simplified material contrast.
+
+## What's new in 0.1.0
+
+- Major first-person presentation remake with five rebuilt weapon viewmodels and distinct profiles for the Vanguard AR, Striker SMG, Breach 12, M9 Sidearm and Sentinel .45.
+- Replaced the simplified hand shapes with articulated forearms, wrists, palms, curled fingers, thumbs and separate support/fire-hand poses.
+- Added frame-based procedural animation for breathing, movement sway, sprint lowering, firing recoil, reload hand movement and weapon switching.
+- Added named local viewmodel pose states (idle, move, sprint, fire and reload) as a foundation for future network replication. Multiplayer is still in development and is not enabled in this release.
+- Added an Online Multiplayer / Coming Soon indicator to Mission Control.
 
 ## What's new in 0.0.3
 
