@@ -1,8 +1,15 @@
 # DEAD MISSIONS
 
-**Version 0.0.3 — EARLY BUILD**
+**Version 0.0.4 — EARLY BUILD**
 
 Dead Missions is a browser-first first-person mission game, built as a static Three.js site for desktop and mobile browsers.
+
+## What's new in 0.0.4
+
+- Rebuilt all five first-person weapon models with cleaner, more readable silhouettes and consistent proportions.
+- Separated stocks, receivers, handguards, barrels, muzzles, magazines, grips and sights into clearer shapes.
+- Refined sleeve, cuff and glove placement for more natural-looking weapon handling.
+- Reduced decorative clutter and simplified material contrast.
 
 ## What's new in 0.0.3
 
@@ -53,6 +60,9 @@ The `.github/workflows/pages.yml` workflow deploys the static site when changes 
 For first-time Pages initialization, create a fine-grained token restricted to this repository with **Pages: Read and write** and **Administration: Read and write**, then add it as the Actions repository secret `PAGES_SETUP_TOKEN`. Once the Pages site exists, subsequent deployments use the workflow's normal `GITHUB_TOKEN`.
 
 ## Changelog
+
+### 0.0.4
+- Rebuilt all five weapon viewmodels for cleaner silhouettes and clearer hand placement.
 
 ### 0.0.3 [EARLY BUILD]
 - Three-plane bombing sequence with one bomb per aircraft.
