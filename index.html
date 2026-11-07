@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0b0e0c">
-<meta name="description" content="Dead Missions — a browser-based tactical mission game. Early build 0.0.2.">
-<title>DEAD MISSIONS // 0.0.2</title>
+<meta name="description" content="Dead Missions — a browser-based tactical mission game. Early build 0.0.3.">
+<title>DEAD MISSIONS // 0.0.3</title>
 <style>
 :root{--bg:#090c0b;--panel:#111715;--panel2:#18211d;--line:#2a3831;--text:#e8eee9;--muted:#93a198;--green:#b9e26b;--green2:#718e3b;--red:#dd6758;--gold:#d4bd79}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button{font:inherit;color:inherit;cursor:pointer}#game{position:fixed;inset:0;display:block;outline:none}#game canvas{display:block;width:100%;height:100%}
@@ -37,7 +37,7 @@
 #interact-hint{position:absolute;top:58%;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.14em;background:rgba(9,14,11,.85);border:1px solid #556748;padding:9px 14px;display:none}
 #sequence{position:fixed;inset:0;z-index:18;display:none;align-items:center;justify-content:center;text-align:center;background:rgba(0,0,0,.2);pointer-events:none}.sequence-copy{max-width:680px;padding:25px;text-shadow:0 3px 20px #000}.sequence-copy small{color:var(--green);font-size:10px;letter-spacing:.3em;font-weight:900}.sequence-copy h2{font-size:clamp(30px,6vw,58px);line-height:.98;letter-spacing:-.04em;text-transform:uppercase;margin:14px 0}.sequence-copy p{font-size:12px;color:#c1ccc4;letter-spacing:.06em}
 #blackout{position:fixed;inset:0;z-index:25;background:#030504;display:none;align-items:center;justify-content:center;text-align:center;padding:25px}
-#blackout button{margin-top:20px;padding:13px 22px;border:1px solid var(--green);background:var(--green);color:#11170e;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+#blackout .eyebrow{color:#fff;font-size:10px;letter-spacing:.28em}#blackout button{margin-top:30px;padding:14px 25px;border:1px solid #fff;background:#fff;color:#050505;font-weight:900;letter-spacing:.14em;text-transform:uppercase}#blackout button:hover{background:#dfe5df;border-color:#dfe5df}
 .touch-ui{display:none}.mobile-fire,.mobile-button{border:1px solid rgba(198,219,184,.5);background:rgba(12,18,14,.72);backdrop-filter:blur(5px);color:#eaf3e8;border-radius:50%;width:64px;height:64px;font-size:10px;font-weight:900;letter-spacing:.08em;pointer-events:auto;touch-action:none}.mobile-fire{width:76px;height:76px;border-color:var(--green);color:var(--green)}#move-pad{position:absolute;left:18px;bottom:28px;width:125px;height:125px;border:1px solid rgba(220,235,215,.28);border-radius:50%;background:rgba(10,16,12,.38);pointer-events:auto;touch-action:none}#move-knob{position:absolute;left:38px;top:38px;width:48px;height:48px;border-radius:50%;background:rgba(191,225,125,.45);border:1px solid rgba(214,237,173,.8)}#look-zone{position:absolute;right:0;top:0;width:52%;height:72%;pointer-events:auto;touch-action:none}.touch-actions{position:absolute;right:18px;bottom:25px;display:flex;align-items:center;gap:9px}.mobile-row{position:absolute;right:24px;bottom:112px;display:flex;gap:8px}
 @media(max-width:760px){#menu{padding:18px;align-items:flex-start}.menu-wrap{grid-template-columns:1fr;gap:18px;max-width:520px}.brand{font-size:58px;margin:12px 0}.brand-sub{font-size:12px}.menu-panel{padding:17px}.menu-foot{font-size:8px}.hud-top{top:8px;left:8px;right:8px}.hud-block{padding:8px 9px;min-width:0}.hud-label{font-size:8px}.hud-value{font-size:10px}.hud-objective{top:67px;left:8px;padding:8px 10px;max-width:75vw}.hud-objective div{font-size:11px}.hud-bottom{bottom:10px;left:8px;right:8px}.weapon-hud{padding:9px 10px;min-width:145px}.weapon-hud b{font-size:10px}.weapon-hud strong{font-size:18px}.health{width:95px}.touch-ui{display:block}.crosshair{width:15px;height:15px}.crosshair:before{height:15px;left:7px}.crosshair:after{width:15px;top:7px}.weapon-grid{grid-template-columns:1fr 1fr}.weapon-option{min-height:112px;padding:10px}.weapon-option .weapon-art{height:35px}.modal-box{padding:17px}.modal-top h2{font-size:12px}}
 @media(min-width:761px){.touch-ui{display:none}}
@@ -51,7 +51,7 @@
    <div class="brand-kicker">A FIELD RECORD // CLASSIFIED</div>
    <h1 class="brand">DEAD<span>MISSIONS</span></h1>
    <p class="brand-sub">Two operations. One failed training day. Get through the range, survive the blackout, and bring the signal home. A first-person mission game built for the browser.</p>
-   <div class="build-stamp"><i></i> VERSION 0.0.2 &nbsp; / &nbsp; EARLY BUILD</div>
+   <div class="build-stamp"><i></i> VERSION 0.0.3 &nbsp; / &nbsp; EARLY BUILD</div>
   </section>
   <section class="menu-panel">
    <div class="panel-head"><b id="menu-title">Mission Control</b><small>DM // FIELD OPS</small></div>
@@ -59,7 +59,7 @@
     <button class="action primary" id="start-btn"><span>Begin Operation</span><small>MISSION 01 / RANGE ZERO →</small></button>
     <button class="action" id="missions-btn"><span>Mission Select</span><small>02 OPERATIONS</small></button>
     <button class="action" id="loadout-btn"><span>Armory / Loadout</span><small>3 PRIMARY · 2 SECONDARY</small></button>
-    <button class="action" id="changelog-btn"><span>Field Changelog</span><small>WHAT'S NEW IN 0.0.1</small></button>
+    <button class="action" id="changelog-btn"><span>Field Changelog</span><small>WHAT'S NEW IN 0.0.3</small></button>
     <button class="action" id="controls-btn"><span>Controls</span><small>HOW TO PLAY</small></button>
    </div>
    <div id="missions-panel" style="display:none">
@@ -88,7 +88,7 @@
  <div id="toast"></div>
 </div>
 <div id="sequence"><div class="sequence-copy"><small id="sequence-kicker">RANGE ZERO // TRAINING COMPLETE</small><h2 id="sequence-title">Something is wrong.</h2><p id="sequence-line">Aircraft detected beyond the perimeter.</p></div></div>
-<div id="blackout"><div><div class="eyebrow">SIGNAL LOST // FIELD REPORT</div><h2 id="blackout-title" style="font-size:clamp(30px,6vw,56px);letter-spacing:-.04em;margin:14px 0">BLACKOUT PROTOCOL</h2><p id="blackout-copy" style="color:#9eaaa2;line-height:1.7;max-width:500px;margin:auto">You regain consciousness near the damaged communications outpost. The emergency relay is still online.</p><button id="blackout-continue">Continue to mission 02</button></div></div>
+<div id="blackout"><div style="width:min(760px,100%)"><div class="eyebrow" id="blackout-kicker">GLOBAL STATUS // 01</div><h2 id="blackout-title" style="font-size:clamp(34px,7vw,64px);letter-spacing:-.055em;line-height:.98;margin:18px 0 25px;color:#fff">THE WORLD FELL</h2><p id="blackout-copy" style="color:#fff;line-height:1.9;max-width:680px;margin:auto;font-size:clamp(14px,2vw,18px);letter-spacing:.025em">The terrorist coalition seized the world’s capitals. The old world went dark.</p><button id="blackout-continue">Continue</button></div></div>
 <div id="modal" class="modal"><div class="modal-box"><div class="modal-top"><h2 id="modal-title">Field Changelog</h2><button class="close" id="modal-close">×</button></div><div id="modal-content" class="modal-copy"></div></div></div>
 <div id="pause-modal" class="modal"><div class="modal-box" style="max-width:420px"><div class="modal-top"><h2>Operation Paused</h2><button class="close" id="pause-close">×</button></div><div class="menu-actions"><button class="action primary" id="resume-btn"><span>Resume Operation</span><small>BACK TO FIELD</small></button><button class="action" id="pause-loadout"><span>Change Loadout</span><small>WEAPON SELECTION</small></button><button class="action" id="exit-btn"><span>Return to Main Menu</span><small>PROGRESS IN THIS MISSION WILL RESET</small></button></div></div></div>
 <div id="complete-modal" class="modal"><div class="modal-box" style="max-width:500px;text-align:center"><div class="eyebrow">OPERATION REPORT // COMPLETE</div><h2 id="complete-title" style="font-size:clamp(30px,6vw,48px);letter-spacing:-.05em;margin:16px 0">MISSION COMPLETE</h2><p id="complete-copy" class="modal-copy">The extraction signal is secure.</p><button class="action primary" id="complete-menu" style="width:100%;margin-top:18px"><span>Return to Mission Control</span><small>END REPORT →</small></button></div></div>
@@ -98,7 +98,13 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
 const $ = id => document.getElementById(id);
 const gameRoot = $("game");
-const state = {mode:"menu",mission:1,headshots:0,unlocked2:false,activeSlot:"primary",primary:"vanguard",secondary:"sidearm",lastShot:0,reloadTimer:0,sequenceTimer:0,sequenceStage:0,extractionTime:0,relayCount:0,dronesLeft:0,toastTimer:0,elapsed:0,knockdown:null,cameraHeight:1.7,footstepTimer:0};
+const state = {mode:"menu",mission:1,headshots:0,unlocked2:false,activeSlot:"primary",primary:"vanguard",secondary:"sidearm",lastShot:0,reloadTimer:0,sequenceTimer:0,sequenceStage:0,extractionTime:0,relayCount:0,dronesLeft:0,toastTimer:0,elapsed:0,knockdown:null,cameraHeight:1.7,footstepTimer:0,storyIndex:0};
+const storyMessages = [
+ {kicker:"GLOBAL STATUS // 01",title:"THE WORLD FELL",copy:"The terrorist coalition seized the world’s capitals, major networks and supply routes. Governments collapsed. The old world went dark."},
+ {kicker:"LAST TERRITORY // 02",title:"ONE PLACE REMAINS",copy:"One free territory is still holding the line. It is the last safe place on Earth, and enemy forces are moving to take it."},
+ {kicker:"ENEMY TRANSMISSION // 03",title:"THEY ARE HUNTING YOU",copy:"The strike was not random. They tracked your training signal. The coalition wants the territory’s communications codes — and they intend to capture you."},
+ {kicker:"MISSION DIRECTIVE // 04",title:"STAY ALIVE",copy:"Reach the communications outpost. Restore the three relays, disable the hostile drones and send the extraction signal. Do not let them take the last territory."}
+];
 const weapons = {
  vanguard:{name:"Vanguard AR",slot:"PRIMARY",ammo:30,maxAmmo:30,reserve:120,damage:1,rate:145,auto:true,color:0x87965f,model:"rifle",description:"Balanced full-size rifle · dependable in every lane."},
  striker:{name:"Striker SMG",slot:"PRIMARY",ammo:36,maxAmmo:36,reserve:144,damage:1,rate:82,auto:true,color:0x9ba58c,model:"smg",description:"Compact and quick · built for close-range encounters."},
@@ -107,14 +113,14 @@ const weapons = {
  sentinel:{name:"Sentinel .45",slot:"SECONDARY",ammo:8,maxAmmo:8,reserve:40,damage:2,rate:390,auto:false,color:0xc1a775,model:"heavy",description:"Heavy sidearm · fewer rounds, stronger impact."}
 };
 let scene,camera,renderer,clock,raycaster,gun=null,gunBaseY=0;
-let targets=[],drones=[],relays=[],bombs=[],particles=[],plane=null,worldObjects=[];
+let targets=[],drones=[],relays=[],bombs=[],particles=[],planes=[],worldObjects=[];
 let yaw=0,pitch=0,keys={},moveTouch={x:0,y:0},lookTouch=null,lastFrame=0,shake=0,nearRelay=null,extractionPoint=null;
 let audioCtx=null,audioMaster=null,noiseBuffer=null,ambienceSource=null,ambienceGain=null;
 const mat=(color,rough=.8,metal=0)=>new THREE.MeshStandardMaterial({color,roughness:rough,metalness:metal});
 const mats={ground:mat(0x495044),dark:mat(0x252d28),wall:mat(0x657064),metal:mat(0x444d48,.45,.7),olive:mat(0x555f43),green:mat(0x9fca58,.45,.1),glow:new THREE.MeshStandardMaterial({color:0xa8dd69,emissive:0x4f7c20,emissiveIntensity:1.5}),redGlow:new THREE.MeshStandardMaterial({color:0xff6554,emissive:0xa52b20,emissiveIntensity:1.8}),sand:mat(0x827a5c),concrete:mat(0x62685f)};
 function init3D(){
  scene=new THREE.Scene();scene.background=new THREE.Color(0x87958b);scene.fog=new THREE.Fog(0x87958b,35,115);
- camera=new THREE.PerspectiveCamera(76,innerWidth/innerHeight,.08,180);camera.rotation.order="YXZ";camera.position.set(0,1.7,12);
+ camera=new THREE.PerspectiveCamera(76,innerWidth/innerHeight,.08,180);camera.rotation.order="YXZ";camera.position.set(0,1.7,12);scene.add(camera);
  renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:"high-performance"});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;gameRoot.appendChild(renderer.domElement);
  scene.add(new THREE.HemisphereLight(0xdce8dc,0x414a3e,2.1));
  const sun=new THREE.DirectionalLight(0xffe5c1,2.1);sun.position.set(-22,35,18);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-45;sun.shadow.camera.right=45;sun.shadow.camera.top=45;sun.shadow.camera.bottom=-45;scene.add(sun);
@@ -132,14 +138,110 @@ function isTouchDevice(){return matchMedia("(pointer:coarse)").matches||navigato
 function block(parent,sz,pos,material,rotation){const m=new THREE.Mesh(new THREE.BoxGeometry(sz[0],sz[1],sz[2]),material);m.position.set(pos[0],pos[1],pos[2]);if(rotation)m.rotation.set(rotation[0],rotation[1],rotation[2]);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
 function cyl(parent,r1,r2,h,pos,material,segments=12,rotation){const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,segments),material);m.position.set(pos[0],pos[1],pos[2]);if(rotation)m.rotation.set(rotation[0],rotation[1],rotation[2]);m.castShadow=true;parent.add(m);return m;}
 function sphere(parent,r,pos,material,segments=12){const m=new THREE.Mesh(new THREE.SphereGeometry(r,segments,8),material);m.position.set(pos[0],pos[1],pos[2]);m.castShadow=true;parent.add(m);return m;}
-function clearWorld(){targets=[];drones=[];relays=[];bombs=[];particles=[];worldObjects=[];plane=null;nearRelay=null;extractionPoint=null;while(scene.children.length>0){const child=scene.children[0];if(child.isLight){scene.remove(child);continue;}scene.remove(child);}scene.add(new THREE.HemisphereLight(0xdce8dc,0x414a3e,2.1));const sun=new THREE.DirectionalLight(0xffe5c1,2.1);sun.position.set(-22,35,18);scene.add(sun);}
-function makeGround(color){const g=new THREE.Mesh(new THREE.PlaneGeometry(150,150),mat(color));g.rotation.x=-Math.PI/2;g.position.y=-.08;g.receiveShadow=true;scene.add(g);const grid=new THREE.GridHelper(150,75,0x66715f,0x596451);grid.position.y=-.065;grid.material.transparent=true;grid.material.opacity=.16;scene.add(grid);}
-function addBuilding(x,z,w,h,d,color){const g=new THREE.Group();g.position.set(x,0,z);block(g,[w,h,d],[0,h/2,0],mat(color));block(g,[w+.2,.22,d+.2],[0,h+.08,0],mats.dark);const door=block(g,[w*.18,h*.55,.12],[0,h*.275,d/2+.07],mats.dark);scene.add(g);return g;}
+function clearWorld(){
+ targets=[];drones=[];relays=[];bombs=[];particles=[];planes=[];worldObjects=[];nearRelay=null;extractionPoint=null;
+ while(scene.children.length>0)scene.remove(scene.children[0]);
+ // The first-person weapon is attached to the camera, so keep the camera in the scene graph.
+ scene.add(camera);
+ scene.add(new THREE.HemisphereLight(0xdce8dc,0x414a3e,2.1));
+ const sun=new THREE.DirectionalLight(0xffe5c1,2.1);sun.position.set(-22,35,18);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-45;sun.shadow.camera.right=45;sun.shadow.camera.top=45;sun.shadow.camera.bottom=-45;scene.add(sun);
+}function terrainNoise(x,z,scale){
+ const gx=x*scale,gz=z*scale,ix=Math.floor(gx),iz=Math.floor(gz),u=gx-ix,v=gz-iz;
+ const hash=(a,b)=>{const n=Math.sin(a*127.1+b*311.7)*43758.5453;return n-Math.floor(n);};
+ const smooth=t=>t*t*(3-2*t),su=smooth(u),sv=smooth(v);
+ const a=hash(ix,iz),b=hash(ix+1,iz),c=hash(ix,iz+1),d=hash(ix+1,iz+1);
+ const top=a+(b-a)*su,bottom=c+(d-c)*su;
+ return top+(bottom-top)*sv;
+}
+function seededRandom(seed){
+ let value=seed>>>0;
+ return ()=>{value=(value*1664525+1013904223)>>>0;return value/4294967296;};
+}
+function makeGround(color){
+ const geometry=new THREE.PlaneGeometry(150,150,105,105),positions=geometry.attributes.position,colors=[];
+ const grassBase=new THREE.Color(color).lerp(new THREE.Color(0x78865c),.52),sandBase=new THREE.Color(0xa99168);
+ for(let i=0;i<positions.count;i++){
+  const x=positions.getX(i),z=-positions.getY(i);
+  const broad=terrainNoise(x,z,.028),mid=terrainNoise(x+43,z-19,.064),detail=terrainNoise(x-27,z+63,.16);
+  const sandy=THREE.MathUtils.clamp((broad*.58+mid*.42-.43)*2.35+(detail-.5)*.18,0,1);
+  const shade=.94+(detail-.5)*.12;
+  const c=grassBase.clone().lerp(sandBase,sandy).multiplyScalar(shade);
+  colors.push(c.r,c.g,c.b);
+ }
+ geometry.setAttribute("color",new THREE.Float32BufferAttribute(colors,3));
+ geometry.rotateX(-Math.PI/2);geometry.computeVertexNormals();
+ const random=seededRandom(8400+state.mission),canvas=document.createElement("canvas");canvas.width=canvas.height=128;
+ const ctx=canvas.getContext("2d"),pixels=ctx.createImageData(128,128);
+ for(let i=0;i<pixels.data.length;i+=4){
+  const shade=218+Math.floor(random()*38);pixels.data[i]=shade;pixels.data[i+1]=shade;pixels.data[i+2]=shade;pixels.data[i+3]=255;
+ }
+ ctx.putImageData(pixels,0,0);
+ for(let i=0;i<950;i++){
+  const alpha=(random()*.17).toFixed(2);
+  ctx.fillStyle=i%3===0?"rgba(104,86,56,"+alpha+")":"rgba(76,91,60,"+alpha+")";
+  ctx.fillRect(random()*128,random()*128,1+random()*2,1+random()*2);
+ }
+ const texture=new THREE.CanvasTexture(canvas);texture.wrapS=texture.wrapT=THREE.RepeatWrapping;texture.repeat.set(28,28);texture.colorSpace=THREE.SRGBColorSpace;
+ texture.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);
+ const material=new THREE.MeshStandardMaterial({map:texture,color:0xffffff,vertexColors:true,roughness:1});
+ const ground=new THREE.Mesh(geometry,material);ground.position.y=-.09;ground.receiveShadow=true;ground.frustumCulled=false;scene.add(ground);
+ addTerrainScatter();
+}
+function addTerrainScatter(){
+ const random=seededRandom(1729+state.mission*97),dummy=new THREE.Object3D();
+ const keepClear=(x,z)=>{
+  if(Math.abs(x)<5.7&&z>-62&&z<-6)return true;
+  if(state.mission===1&&Math.abs(x)<14&&((Math.abs(z+17)<4)||(Math.abs(z+29)<4)))return true;
+  if(state.mission===2&&[[-11,-18],[10,-28],[0,-43]].some(p=>Math.hypot(x-p[0],z-p[1])<3.4))return true;
+  return false;
+ };
+ const grassGeometry=new THREE.ConeGeometry(.035,.28,3);
+ const grassMaterial=new THREE.MeshStandardMaterial({color:0xffffff,roughness:1});
+ const grass=new THREE.InstancedMesh(grassGeometry,grassMaterial,2200);let grassCount=0;
+ for(let attempts=0;attempts<9000&&grassCount<2200;attempts++){
+  const x=random()*130-65,z=random()*130-65;
+  if(keepClear(x,z))continue;
+  const dry=terrainNoise(x,z,.028)*.58+terrainNoise(x+43,z-19,.064)*.42;
+  if(dry>.61&&random()>.16)continue;
+  const height=.62+random()*1.05;
+  dummy.position.set(x,.14*height,z);dummy.rotation.set((random()-.5)*.22,random()*Math.PI*2,(random()-.5)*.22);dummy.scale.set(.7,height,.7);dummy.updateMatrix();
+  grass.setMatrixAt(grassCount,dummy.matrix);
+  grass.setColorAt(grassCount,new THREE.Color().setHSL(.21+random()*.055,.22+random()*.16,.27+random()*.13));
+  grassCount++;
+ }
+ grass.count=grassCount;grass.instanceMatrix.needsUpdate=true;if(grass.instanceColor)grass.instanceColor.needsUpdate=true;grass.frustumCulled=false;scene.add(grass);
+ const rockGeometry=new THREE.IcosahedronGeometry(1,1),rockPositions=rockGeometry.attributes.position;
+ for(let i=0;i<rockPositions.count;i++){
+  const v=new THREE.Vector3().fromBufferAttribute(rockPositions,i).normalize().multiplyScalar(.78+random()*.42);
+  rockPositions.setXYZ(i,v.x,v.y,v.z);
+ }
+ rockGeometry.computeVertexNormals();
+ const rockMaterial=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.98});
+ const rocks=new THREE.InstancedMesh(rockGeometry,rockMaterial,125);let rockCount=0;
+ for(let attempts=0;attempts<1800&&rockCount<125;attempts++){
+  const x=random()*130-65,z=random()*130-65;
+  if(keepClear(x,z))continue;
+  const sx=.34+random()*.9,sy=.25+random()*.55,sz=.35+random()*.85;
+  dummy.position.set(x,sy*.72,z);dummy.rotation.set(random()*.3,random()*Math.PI*2,random()*.28);dummy.scale.set(sx,sy,sz);dummy.updateMatrix();
+  rocks.setMatrixAt(rockCount,dummy.matrix);
+  rocks.setColorAt(rockCount,new THREE.Color().setHSL(.09+random()*.035,.07+random()*.12,.31+random()*.16));
+  rockCount++;
+ }
+ rocks.count=rockCount;rocks.instanceMatrix.needsUpdate=true;if(rocks.instanceColor)rocks.instanceColor.needsUpdate=true;rocks.castShadow=true;rocks.receiveShadow=true;rocks.frustumCulled=false;scene.add(rocks);
+}function addBuilding(x,z,w,h,d,color){const g=new THREE.Group();g.position.set(x,0,z);block(g,[w,h,d],[0,h/2,0],mat(color));block(g,[w+.2,.22,d+.2],[0,h+.08,0],mats.dark);const door=block(g,[w*.18,h*.55,.12],[0,h*.275,d/2+.07],mats.dark);scene.add(g);return g;}
 function addBarrier(x,z,w=3){const g=new THREE.Group();g.position.set(x,0,z);block(g,[w,.62,.55],[0,.55,0],mats.sand);block(g,[w,.13,.61],[0,.86,0],mats.dark);for(let i=-1;i<=1;i++)block(g,[.09,.8,.65],[i*w/2,.4,0],mats.olive);scene.add(g);}
 function addCone(x,z){const g=new THREE.Group();g.position.set(x,0,z);block(g,[.55,.1,.55],[0,.05,0],mats.dark);cyl(g,.04,.22,.48,[0,.32,0],mat(0xd36d36),8);cyl(g,.11,.15,.08,[0,.28,0],mat(0xe5d9b5),8);scene.add(g);}
 function addDummy(x,z,index){const g=new THREE.Group();g.position.set(x,0,z);const body=block(g,[.58,.82,.28],[0,1.03,0],mat(0x777d70));const vest=block(g,[.61,.52,.31],[0,1.1,-.01],mat(0x4d5846));const head=sphere(g,.23,[0,1.68,0],mat(0xb4a68b),16);head.userData.hit="head";head.userData.targetIndex=index;const cap=sphere(g,.24,[0,1.83,0],mat(0x434a3c),12);cap.scale.y=.4;block(g,[.19,.68,.2],[-.42,1.05,0],mat(0x777d70),[0,0,-.08]);block(g,[.19,.68,.2],[.42,1.05,0],mat(0x777d70),[0,0,.08]);block(g,[.23,.7,.24],[-.19,.36,0],mat(0x414b3e));block(g,[.23,.7,.24],[.19,.36,0],mat(0x414b3e));cyl(g,.38,.38,.08,[0,.08,0],mats.dark,16);g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(g);targets.push({group:g,head:head,active:true});}
-function addJet(){const g=new THREE.Group();const fus=block(g,[.65,.6,6],[0,0,0],mat(0x424d48));fus.rotation.x=0;const nose=new THREE.Mesh(new THREE.ConeGeometry(.35,1.7,8),mat(0x67736b));nose.rotation.x=-Math.PI/2;nose.position.z=-3.5;g.add(nose);block(g,[8,.13,1.2],[0,0,0],mat(0x3b4842));block(g,[.7,.18,2.2],[0,0,1.3],mat(0x303b36));block(g,[.2,1.6,1.1],[0,.8,2.1],mat(0x424d48));scene.add(g);g.position.set(-32,22,-13);plane=g;}
-function addRoad(width,depth,x,z,color=0x64675d){const mesh=new THREE.Mesh(new THREE.PlaneGeometry(width,depth),mat(color,.98));mesh.rotation.x=-Math.PI/2;mesh.position.set(x,.008,z);mesh.receiveShadow=true;scene.add(mesh);return mesh;}
+function addJet(x,y,z){
+ const g=new THREE.Group(),body=mat(0x424d48,.6,.35),edge=mat(0x778179,.5,.35);
+ block(g,[.65,.6,6],[0,0,0],body);
+ const nose=new THREE.Mesh(new THREE.ConeGeometry(.35,1.7,8),edge);nose.rotation.x=-Math.PI/2;nose.position.z=-3.5;g.add(nose);
+ block(g,[8,.13,1.2],[0,0,0],body);block(g,[.7,.18,2.2],[0,0,1.3],body);block(g,[.2,1.6,1.1],[0,.8,2.1],body);
+ for(const side of [-1,1])cyl(g,.28,.28,1.1,[side*.48,-.12,1.35],mats.dark,12,[Math.PI/2,0,0]);
+ g.rotation.y=-Math.PI/2;g.position.set(x,y,z);g.userData.baseY=y;g.userData.baseZ=z;g.visible=false;
+ g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+ scene.add(g);planes.push(g);return g;
+}function addRoad(width,depth,x,z,color=0x64675d){const mesh=new THREE.Mesh(new THREE.PlaneGeometry(width,depth),mat(color,.98));mesh.rotation.x=-Math.PI/2;mesh.position.set(x,.008,z);mesh.receiveShadow=true;scene.add(mesh);return mesh;}
 function addFence(x,z,length,angle=0){const group=new THREE.Group(),posts=Math.max(2,Math.floor(length/2.8));for(let i=0;i<=posts;i++){const px=-length/2+i*length/posts;block(group,[.12,1.65,.12],[px,.82,0],mats.metal);block(group,[.15,.09,.16],[px,1.68,0],mats.dark);}for(const y of [.48,1.22])block(group,[length,.08,.09],[0,y,0],mats.metal);group.position.set(x,0,z);group.rotation.y=angle;scene.add(group);}
 function addCrate(x,z,scale=1){const g=new THREE.Group();block(g,[.95*scale,.82*scale,.9*scale],[0,.42*scale,0],mat(0x615943));for(const y of [.08,.76])block(g,[1.02*scale,.07*scale,.97*scale],[0,y*scale,0],mat(0x353d34));for(const xx of [-.42,.42])block(g,[.07*scale,.86*scale,.95*scale],[xx*scale,.42*scale,0],mat(0x847654));g.position.set(x,0,z);g.rotation.y=(Math.random()-.5)*.18;scene.add(g);}
 function addLightPole(x,z){const g=new THREE.Group();cyl(g,.07,.09,5.8,[0,2.9,0],mats.metal,10);block(g,[1.1,.09,.12],[.48,5.65,0],mats.metal);block(g,[.26,.12,.32],[.92,5.56,0],mats.glow);const light=new THREE.PointLight(0xc7e49a,.55,12);light.position.set(.9,5.35,0);g.add(light);g.position.set(x,0,z);scene.add(g);}
@@ -163,9 +265,9 @@ function buildRange(){
  addCrate(-15,-10,1.2);addCrate(15,-11,1.15);addCrate(-16,-33);addCrate(16,-34);
  addVehicle(-23,-31,.7,false);addVehicle(23,-8,-.3,false);
  for(let i=0;i<12;i++){const x=-34+Math.random()*68,z=-52+Math.random()*12;const rock=block(scene,[1+Math.random()*2,.4+Math.random()*1.1,1+Math.random()*2],[x,.08,z],mat(0x737568));rock.rotation.y=Math.random()*2;}
- addJet();camera.position.set(0,1.7,12);yaw=0;pitch=-.025;camera.rotation.set(pitch,yaw,0);
-}
-function addRelay(x,z,index){const g=new THREE.Group();g.position.set(x,0,z);cyl(g,.85,.95,.24,[0,.12,0],mats.dark,12);cyl(g,.32,.32,2.4,[0,1.35,0],mats.metal,10);block(g,[.85,.85,.4],[0,1.35,0],mat(0x47564c,.5,.5));const lamp=sphere(g,.22,[0,2.05,.24],mats.redGlow,12);cyl(g,.72,.72,.06,[0,2.3,0],mats.glow,24);const ring=new THREE.Mesh(new THREE.TorusGeometry(.68,.035,6,24),mats.redGlow);ring.position.y=2.3;ring.rotation.x=Math.PI/2;g.add(ring);scene.add(g);const relay={group:g,lamp:lamp,index:index,active:false,position:new THREE.Vector3(x,0,z)};relays.push(relay);}
+ addJet(-28,24,-13);addJet(-22,26,-18);addJet(-16,28,-23);
+ camera.position.set(0,1.7,12);yaw=0;pitch=-.025;camera.rotation.set(pitch,yaw,0);
+}function addRelay(x,z,index){const g=new THREE.Group();g.position.set(x,0,z);cyl(g,.85,.95,.24,[0,.12,0],mats.dark,12);cyl(g,.32,.32,2.4,[0,1.35,0],mats.metal,10);block(g,[.85,.85,.4],[0,1.35,0],mat(0x47564c,.5,.5));const lamp=sphere(g,.22,[0,2.05,.24],mats.redGlow,12);cyl(g,.72,.72,.06,[0,2.3,0],mats.glow,24);const ring=new THREE.Mesh(new THREE.TorusGeometry(.68,.035,6,24),mats.redGlow);ring.position.y=2.3;ring.rotation.x=Math.PI/2;g.add(ring);scene.add(g);const relay={group:g,lamp:lamp,index:index,active:false,position:new THREE.Vector3(x,0,z)};relays.push(relay);}
 function addDrone(x,z,index){const g=new THREE.Group();g.position.set(x,2.2,z);const core=new THREE.Mesh(new THREE.OctahedronGeometry(.55,1),mat(0x4d5854,.35,.7));core.userData.droneIndex=index;g.add(core);const eye=sphere(g,.17,[0,0,-.48],mats.redGlow,12);eye.userData.droneIndex=index;for(let i=0;i<4;i++){const a=i*Math.PI/2;block(g,[1.15,.08,.13],[Math.sin(a)*.65,0,Math.cos(a)*.65],mats.metal,[0,-a,0]);sphere(g,.12,[Math.sin(a)*1.2,.02,Math.cos(a)*1.2],mats.glow,8);}scene.add(g);const drone={group:g,core:core,health:3,index:index,active:true,base:new THREE.Vector3(x,2.2,z),phase:index*1.7};core.userData.drone=drone;eye.userData.drone=drone;drones.push(drone);}
 function buildOutpost(){
  scene.background=new THREE.Color(0x747d76);scene.fog=new THREE.Fog(0x747d76,38,120);makeGround(0x4b5149);
@@ -235,8 +337,8 @@ function makeWeaponModel(id){
   addViewGlove(g,[.43,-.51,-.43],1);
   addViewGlove(g,[.24,-.59,-.74],.86);
  }
- g.position.set(0,0,-.02);g.rotation.set(-.01,-.01,0);
- g.traverse(o=>{if(o.isMesh){o.frustumCulled=false;o.renderOrder=3;o.castShadow=false;}});
+ g.position.set(-.08,.025,-.015);g.rotation.set(-.01,-.01,0);g.scale.setScalar(.94);
+ g.traverse(o=>{if(o.isMesh){o.frustumCulled=false;o.renderOrder=999;o.castShadow=false;o.material.depthTest=false;o.material.depthWrite=false;}});
  const light=new THREE.PointLight(0xe0ebd6,.9,3.8);light.position.set(.25,.55,.5);g.add(light);
  camera.add(g);gun=g;gunBaseY=g.position.y;
 }
@@ -282,9 +384,25 @@ function reload(){if(state.mode!=="playing")return;const w=activeWeapon();if(sta
 function finishReload(){const w=activeWeapon(),need=w.maxAmmo-w.ammo,take=Math.min(need,w.reserve);w.ammo+=take;w.reserve-=take;state.reloadTimer=0;updateWeaponHud();mechanicalClick(1.25);}
 function switchSlot(){if(state.mode!=="playing")return;state.activeSlot=state.activeSlot==="primary"?"secondary":"primary";makeWeaponModel(state.activeSlot==="primary"?state.primary:state.secondary);updateWeaponHud();}
 function startMission(n){if(n===2&&!state.unlocked2){toast("COMPLETE RANGE ZERO TO UNLOCK");return;}state.mission=n;state.mode="playing";state.knockdown=null;state.cameraHeight=1.7;state.headshots=n===1?0:state.headshots;state.relayCount=0;state.dronesLeft=0;state.extractionTime=0;state.sequenceTimer=0;state.reloadTimer=0;state.lastShot=0;for(const id of [state.primary,state.secondary]){weapons[id].ammo=weapons[id].maxAmmo;weapons[id].reserve=id==="vanguard"?120:id==="striker"?144:id==="breach"?40:id==="sidearm"?60:40;}keys={};$("menu").style.display="none";$("hud").style.display="block";$("blackout").style.display="none";$("pause-modal").classList.remove("open");$("complete-modal").classList.remove("open");$("sequence").style.display="none";clearWorld();if(n===1){buildRange();updateObjective("Land 10 headshots on the training dummies.");$("field-status").textContent="TRAINING LIVE";}else{buildOutpost();updateObjective("Restore the 3 communications relays. Press E near each relay.");$("field-status").textContent="SIGNAL LOST";}makeWeaponModel(state.activeSlot==="primary"?state.primary:state.secondary);setHudMission();updateWeaponHud();$("health-fill").style.width="100%";$("interact-hint").style.display="none";startAmbience();radioCall(n===1?"Range control to trainee. Begin your ten target headshot drill.":"Blackout protocol. Restore the three relay stations, then reach extraction.");if(!isTouchDevice())renderer.domElement.requestPointerLock?.();else $("touch-ui").style.display="block";}
-function beginSequence(){if(state.mode!=="playing")return;state.mode="sequence";state.sequenceTimer=0;state.sequenceStage=0;$("sequence").style.display="flex";$("sequence-kicker").textContent="RANGE ZERO // TRAINING COMPLETE";$("sequence-title").textContent="Something is wrong."; $("sequence-line").textContent="Aircraft detected beyond the perimeter.";planeSound();toast("UNIDENTIFIED AIRCRAFT · LOOK UP");}
-function showBlackout(){state.mode="blackout";$("sequence").style.display="none";$("hud").style.display="none";$("blackout").style.display="flex";$("blackout-title").textContent="BLACKOUT PROTOCOL";$("blackout-copy").textContent="The training field has gone silent. You regain consciousness near a damaged communications outpost. Three emergency relays are still transmitting. Restore the signal and reach the extraction beacon.";}
-function triggerKnockdown(x,z){
+function beginSequence(){
+ if(state.mode!=="playing")return;
+ state.mode="sequence";state.sequenceTimer=0;state.sequenceStage=0;
+ planes.forEach(p=>{p.visible=true;});
+ $("sequence").style.display="flex";$("sequence-kicker").textContent="RANGE ZERO // TRAINING COMPLETE";
+ $("sequence-title").textContent="Something is wrong.";$("sequence-line").textContent="Three aircraft approach from beyond the perimeter.";
+ planeSound();toast("THREE UNIDENTIFIED AIRCRAFT · LOOK UP");
+}function showBlackout(){
+ state.mode="blackout";state.storyIndex=0;
+ $("sequence").style.display="none";$("hud").style.display="none";$("blackout").style.display="flex";
+ updateStoryCard();
+}
+function updateStoryCard(){
+ const card=storyMessages[state.storyIndex];
+ $("blackout-kicker").textContent=card.kicker;
+ $("blackout-title").textContent=card.title;
+ $("blackout-copy").textContent=card.copy;
+ $("blackout-continue").textContent=state.storyIndex===storyMessages.length-1?"Begin Mission 02":"Continue";
+}function triggerKnockdown(x,z){
  if(state.knockdown)return;
  const away=new THREE.Vector3(camera.position.x-x,0,camera.position.z-z);if(away.lengthSq()<.05)away.set(.18,0,1);away.normalize();
  state.knockdown={time:0,origin:camera.position.clone(),away:away,roll:Math.random()>.5?1:-1,basePitch:pitch};
@@ -298,22 +416,33 @@ function spawnBombEffect(x,z){
 }
 function updateSequence(dt){
  state.sequenceTimer+=dt;
- if(plane){plane.position.x+=dt*13;plane.position.z+=dt*.4;plane.rotation.z=Math.sin(state.sequenceTimer*1.1)*.025;}
- if(state.sequenceTimer>2&&state.sequenceStage===0){
-  state.sequenceStage=1;$("sequence-title").textContent="INCOMING";$("sequence-line").textContent="Aircraft overhead. Take cover!";
-  radioCall("Aircraft overhead! Incoming impact!");for(let i=0;i<3;i++){const x=-7+i*7,z=-10-Math.random()*10;const bomb=sphere(scene,.18,[plane?plane.position.x+i*4:0,18,z],mat(0x242b28),8);bombs.push({mesh:bomb,targetX:x,targetZ:z,speed:18+i*2});}
+ planes.forEach((p,i)=>{
+  if(!p.visible)return;
+  p.position.x+=dt*13;p.position.y=p.userData.baseY+Math.sin(state.sequenceTimer*1.7+i)*.16;
+  p.rotation.z=Math.sin(state.sequenceTimer*1.1+i)*.018;
+ });
+ if(state.sequenceTimer>1.65&&state.sequenceStage===0){
+  state.sequenceStage=1;$("sequence-title").textContent="THREE AIRCRAFT // INCOMING";$("sequence-line").textContent="Three aircraft cross the range. One bomb from each plane!";
+  radioCall("Three aircraft overhead! Three incoming bombs!");
+  planes.slice(0,3).forEach((p,i)=>{
+   const bomb=sphere(scene,.2,[p.position.x,p.position.y-.55,p.position.z],mat(0x202622,.42,.35),10);
+   bomb.scale.set(.8,1.45,.8);bombs.push({mesh:bomb,targetX:p.position.x,targetZ:p.position.z,speed:18+i*1.5});
+  });
  }
- bombs.forEach((b,i)=>{if(!b)return;b.mesh.position.y-=dt*b.speed;if(b.mesh.position.y<=.8){spawnBombEffect(b.targetX,b.targetZ);scene.remove(b.mesh);bombs[i]=null;}});
+ bombs.forEach((b,i)=>{
+  if(!b)return;
+  b.speed+=dt*12;b.mesh.position.y-=dt*b.speed;
+  if(b.mesh.position.y<=.65){spawnBombEffect(b.targetX,b.targetZ);scene.remove(b.mesh);bombs[i]=null;}
+ });
  if(state.knockdown){
   const k=state.knockdown;k.time+=dt;const t=THREE.MathUtils.clamp(k.time/1.08,0,1),ease=1-Math.pow(1-t,3);
   camera.position.x=k.origin.x+k.away.x*2.1*ease;camera.position.z=k.origin.z+k.away.z*2.1*ease;state.cameraHeight=THREE.MathUtils.lerp(1.7,.38,ease);camera.position.y=state.cameraHeight;
   pitch=THREE.MathUtils.lerp(k.basePitch,-.42,ease);camera.rotation.set(pitch,yaw,Math.sin(t*Math.PI)*k.roll*.31);
   if(gun){gun.position.y=gunBaseY-.38*ease;gun.rotation.x=-.24*ease;gun.rotation.z=k.roll*.2*ease;}
  }
- if(state.sequenceTimer>4.25&&state.sequenceStage<2){state.sequenceStage=2;$("sequence-title").textContent="YOU'RE DOWN";$("sequence-line").textContent="The blast knocks you off your feet. Your vision fades.";radioCall("Training field is lost. Signal dropping.");}
- if(state.sequenceTimer>6.7){$("blackout").style.display="flex";$("sequence").style.display="none";state.mode="blackout";$("hud").style.display="none";}
-}
-function interact(){if(state.mode!=="playing"||state.mission!==2)return;if(state.relayCount>=3&&state.dronesLeft<=0){if(extractionPoint&&camera.position.distanceTo(extractionPoint)<4){completeMission();return;}toast("EXTRACTION BEACON · MOVE CLOSER");return;}if(state.relayCount>=3&&state.dronesLeft>0){toast("HOSTILE CONTACT · DISABLE ALL DRONES");return;}if(nearRelay&&!nearRelay.active){nearRelay.active=true;nearRelay.lamp.material=mats.glow;nearRelay.group.children.forEach(o=>{if(o.material===mats.redGlow)o.material=mats.glow;});state.relayCount++;playTone(610,.2,"sine",.04);radioCall("Relay "+state.relayCount+" restored.");toast("RELAY RESTORED · "+state.relayCount+"/3");if(state.relayCount===3){radioCall("Signal restored. Hostile drones inbound. Disable them to reach extraction.");updateObjective("Signal restored. Disable the 3 hostile drones.");spawnMissionDrones();$("field-status").textContent="CONTACT";}else updateObjective("Relay network: "+state.relayCount+" / 3 restored. Find the next relay.");}}
+ if(state.sequenceTimer>4.25&&state.sequenceStage<2){state.sequenceStage=2;$("sequence-title").textContent="YOU'RE DOWN";$("sequence-line").textContent="The blasts throw you off your feet. Your vision fades.";radioCall("Training field is lost. Signal dropping.");}
+ if(state.sequenceTimer>6.7)showBlackout();
+}function interact(){if(state.mode!=="playing"||state.mission!==2)return;if(state.relayCount>=3&&state.dronesLeft<=0){if(extractionPoint&&camera.position.distanceTo(extractionPoint)<4){completeMission();return;}toast("EXTRACTION BEACON · MOVE CLOSER");return;}if(state.relayCount>=3&&state.dronesLeft>0){toast("HOSTILE CONTACT · DISABLE ALL DRONES");return;}if(nearRelay&&!nearRelay.active){nearRelay.active=true;nearRelay.lamp.material=mats.glow;nearRelay.group.children.forEach(o=>{if(o.material===mats.redGlow)o.material=mats.glow;});state.relayCount++;playTone(610,.2,"sine",.04);radioCall("Relay "+state.relayCount+" restored.");toast("RELAY RESTORED · "+state.relayCount+"/3");if(state.relayCount===3){radioCall("Signal restored. Hostile drones inbound. Disable them to reach extraction.");updateObjective("Signal restored. Disable the 3 hostile drones.");spawnMissionDrones();$("field-status").textContent="CONTACT";}else updateObjective("Relay network: "+state.relayCount+" / 3 restored. Find the next relay.");}}
 function spawnMissionDrones(){addDrone(-8,-23,0);addDrone(8,-35,1);addDrone(0,-48,2);state.dronesLeft=3;const g=new THREE.Group();cyl(g,1.1,1.1,.18,[0,.09,0],mats.dark,16);cyl(g,.48,.48,1.5,[0,.9,0],mats.metal,12);sphere(g,.26,[0,1.8,0],mats.glow,12);scene.add(g);g.position.set(0,0,-55);extractionPoint=g.position.clone();worldObjects.push(g);}
 function completeMission(){state.mode="complete";document.exitPointerLock?.();$("complete-title").textContent="OPERATION COMPLETE";$("complete-copy").textContent="The relays are online, the extraction zone is secure, and your signal is back. Mission 02 complete. More missions coming soon."; $("complete-modal").classList.add("open");}
 function pauseGame(){if(state.mode!=="playing")return;state.mode="paused";$("pause-modal").classList.add("open");document.exitPointerLock?.();}
@@ -332,12 +461,14 @@ function update(dt){if(state.mode==="playing"){camera.rotation.set(pitch,yaw,0);
 }
 function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05);state.elapsed+=dt;if(state.mode!=="menu"&&state.mode!=="paused"&&state.mode!=="complete"&&state.mode!=="blackout")update(dt);if(renderer&&scene&&camera)renderer.render(scene,camera);}
 function openModal(title,html){$("modal-title").textContent=title;$("modal-content").innerHTML=html;$("modal").classList.add("open");}
-function showChangelog(){openModal("Field Changelog",'<div class="eyebrow">0.0.2 // FIELD POLISH</div><h3 style="font-size:24px;letter-spacing:-.04em;margin:8px 0 14px">Field polish update</h3><p><strong>IMPROVED — First-person weapon viewmodels</strong><br>Visible gloved hands and uniform sleeves now hold all five weapons, with larger, clearer weapon meshes and improved lighting.</p><p><strong>IMPROVED — Audio and radio chatter</strong><br>Layered weapon reports, reload clicks, footsteps, aircraft rumble, explosions, relay tones, and radio voice callouts using your browser speech engine when available.</p><p><strong>IMPROVED — Field environments</strong><br>Expanded training range and communications outpost with fences, roads, watch structures, vehicles, crates, lights, antennas, and debris.</p><p><strong>NEW — Bomb impact knockdown</strong><br>The bombing impact pushes the player back, drops the viewpoint to the ground, and tilts the held weapon before blackout.</p><p><strong>NEW — Two story missions</strong><p><strong>NEW — Two story missions</strong><br>01 · Range Zero: complete the training drill, land 10 headshots, and witness the opening incident.<br>02 · Blackout Protocol: restore three communications relays, disable the hostile drones, and reach extraction.</p><p><strong>NEW — Five selectable weapons</strong><br>Three primary options: Vanguard AR, Striker SMG, and Breach 12. Two secondary options: M9 Sidearm and Sentinel .45.</p><p><strong>NEW — Browser-first 3D gameplay</strong><br>First-person movement, aiming, reloading, weapon swapping, mission objectives, synthesized sound effects, and touch controls.</p><p><strong>COMING SOON</strong><br>More missions, more environments, additional equipment, and expanded field reports.</p><div class="build-stamp"><i></i> EARLY BUILD · EXPECT CHANGES</div>');}
+function showChangelog(){
+ openModal("Field Changelog",'<div class="eyebrow">0.0.3 // WORLD EXPANSION</div><h3 style="font-size:24px;letter-spacing:-.04em;margin:8px 0 14px">The world is changing</h3><p><strong>NEW — Three-aircraft bombing sequence</strong><br>Three aircraft cross the training range and each releases one bomb before the player is knocked down.</p><p><strong>NEW — Story interlude</strong><br>Four white-on-black mission briefings reveal the fall of the world, the last free territory, and the enemy hunt for the player before Mission 02 begins.</p><p><strong>FIXED — First-person weapons</strong><br>The camera now remains in the Three.js scene graph after mission resets, allowing the camera-mounted weapon and hands to render. Viewmodel meshes render above the world.</p><p><strong>NEW — Procedural terrain</strong><br>Grass and sand color fields, fine ground grain, instanced grass blades, and scattered low-poly rocks are generated locally for both maps.</p><p><strong>IMPROVED — Mission environments</strong><br>The training range and communications outpost now have more natural terrain beneath their structures, props, and objectives.</p><div class="build-stamp"><i></i> VERSION 0.0.3 · EARLY BUILD</div>');
+}
 const weaponOption=(id,slot)=>{const w=weapons[id],selected=(slot==="primary"?state.primary:state.secondary)===id;return '<button class="weapon-option '+(selected?"selected":"")+'" data-weapon="'+id+'"><div class="weapon-art">◈</div><b>'+w.name+(selected?" · EQUIPPED":"")+'</b><small>'+w.description+'</small></button>';};
 function showLoadout(){const html='<div class="eyebrow">Choose one weapon from each class</div><div class="section-label">Primary weapons / 3 available</div><div class="weapon-grid">'+weaponOption("vanguard","primary")+weaponOption("striker","primary")+weaponOption("breach","primary")+'</div><div class="section-label">Secondary weapons / 2 available</div><div class="weapon-grid secondary">'+weaponOption("sidearm","secondary")+weaponOption("sentinel","secondary")+'</div><p class="modal-copy" style="margin-top:15px">Your selected loadout is carried into both operations. Press 1 / 2 to switch weapon slots during a mission.</p>';$("modal-title").textContent="Armory / Loadout";$("modal-content").innerHTML=html;$("modal").classList.add("open");$("modal-content").querySelectorAll("[data-weapon]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.weapon,w=weapons[id];if(w.slot==="PRIMARY")state.primary=id;else state.secondary=id;$("modal").classList.remove("open");showLoadout();if(state.mode==="playing"||state.mode==="paused"){makeWeaponModel(state.activeSlot==="primary"?state.primary:state.secondary);updateWeaponHud();}}));}
 function showControls(){openModal("Field Manual",'<p><strong>PC</strong><br>W A S D — Move<br>Mouse — Aim<br>Left click — Fire<br>R — Reload<br>1 / 2 — Switch weapon<br>Shift — Sprint<br>E — Interact<br>Escape — Pause</p><p><strong>Touch devices</strong><br>Left pad — Move<br>Drag the right side — Aim<br>FIRE — Shoot<br>RLD — Reload<br>SWAP — Switch weapon<br>USE — Interact</p><p>Headshots are registered when the crosshair is placed on a training dummy’s head. Mission 02 uses the same controls to disable the drones.</p>');}
 function showMenu(){state.mode="menu";$("hud").style.display="none";$("touch-ui").style.display="none";$("sequence").style.display="none";$("blackout").style.display="none";$("pause-modal").classList.remove("open");$("complete-modal").classList.remove("open");$("menu").style.display="flex";$("missions-panel").style.display="none";$("main-actions").style.display="grid";$("menu-title").textContent="Mission Control";$("mission-two").disabled=!state.unlocked2;document.exitPointerLock?.();}
-$("start-btn").addEventListener("click",()=>startMission(1));$("missions-btn").addEventListener("click",()=>{$("main-actions").style.display="none";$("missions-panel").style.display="block";$("menu-title").textContent="Mission Select";$("mission-two").disabled=!state.unlocked2;});$("mission-one").addEventListener("click",()=>startMission(1));$("mission-two").addEventListener("click",()=>startMission(2));$("missions-back").addEventListener("click",showMenu);$("loadout-btn").addEventListener("click",showLoadout);$("changelog-btn").addEventListener("click",showChangelog);$("controls-btn").addEventListener("click",showControls);$("modal-close").addEventListener("click",()=>$("modal").classList.remove("open"));$("pause-close").addEventListener("click",resumeGame);$("resume-btn").addEventListener("click",resumeGame);$("pause-loadout").addEventListener("click",()=>{$("modal").style.zIndex="40";showLoadout();});$("exit-btn").addEventListener("click",showMenu);$("blackout-continue").addEventListener("click",()=>{state.unlocked2=true;$("mission-two").disabled=false;startMission(2);});$("complete-menu").addEventListener("click",showMenu);
+$("start-btn").addEventListener("click",()=>startMission(1));$("missions-btn").addEventListener("click",()=>{$("main-actions").style.display="none";$("missions-panel").style.display="block";$("menu-title").textContent="Mission Select";$("mission-two").disabled=!state.unlocked2;});$("mission-one").addEventListener("click",()=>startMission(1));$("mission-two").addEventListener("click",()=>startMission(2));$("missions-back").addEventListener("click",showMenu);$("loadout-btn").addEventListener("click",showLoadout);$("changelog-btn").addEventListener("click",showChangelog);$("controls-btn").addEventListener("click",showControls);$("modal-close").addEventListener("click",()=>$("modal").classList.remove("open"));$("pause-close").addEventListener("click",resumeGame);$("resume-btn").addEventListener("click",resumeGame);$("pause-loadout").addEventListener("click",()=>{$("modal").style.zIndex="40";showLoadout();});$("exit-btn").addEventListener("click",showMenu);$("blackout-continue").addEventListener("click",()=>{if(state.storyIndex<storyMessages.length-1){state.storyIndex++;updateStoryCard();return;}state.unlocked2=true;$("mission-two").disabled=false;startMission(2);});$("complete-menu").addEventListener("click",showMenu);
 init3D();
 </script>
 </body>

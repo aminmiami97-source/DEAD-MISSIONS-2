@@ -36,6 +36,9 @@ jobs:
       - name: Verify release metadata
         run: |
           grep -q 'DEAD MISSIONS' index.html
-          grep -q 'VERSION 0.0.2' index.html
+          grep -q 'VERSION 0.0.3' index.html
           grep -q 'Blackout Protocol' README.md
+          grep -q 'addJet(-28,24,-13)' index.html
+          grep -q 'function addTerrainScatter' index.html
+          grep -q 'const storyMessages' index.html
           echo "Release metadata verified."
